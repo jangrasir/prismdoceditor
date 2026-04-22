@@ -83,14 +83,14 @@ export default function Landing() {
           AI-powered. Browser-native. Zero uploads to third parties.
         </div>
 
-        <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tight mb-6 animate-fade-in-up">
+        <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6 animate-fade-in-up">
           Edit documents and images
           <br />
           <span className="text-gradient">at the speed of thought.</span>
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-          Lumen is your all-in-one workspace for PDFs and images. Merge, split, compress, convert,
+          Prism is your all-in-one workspace for PDFs and images. Merge, split, compress, convert,
           and get AI suggestions — all in seconds, all in your browser.
         </p>
 
@@ -127,7 +127,7 @@ export default function Landing() {
                 <div className="h-3 w-3 rounded-full bg-warning/60" />
                 <div className="h-3 w-3 rounded-full bg-success/60" />
               </div>
-              <div className="ml-3 text-xs text-muted-foreground font-mono">lumen.app/pdf-tools</div>
+              <div className="ml-3 text-xs text-muted-foreground font-mono">prism.app/pdf-tools</div>
             </div>
             <div className="grid grid-cols-3 gap-4 p-8">
               {[FileText, ImageIcon, Wand2].map((Icon, i) => (
@@ -204,7 +204,7 @@ export default function Landing() {
       <footer className="relative z-10 container mx-auto max-w-6xl px-4 py-8 border-t border-border">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <Logo />
-          <p>© {new Date().getFullYear()} Lumen. Built for creators.</p>
+          <p>© {new Date().getFullYear()} Prism. Built for creators.</p>
           <div className="flex gap-6">
             <Link to="/auth" className="hover:text-foreground">Sign in</Link>
             <a href="#" className="hover:text-foreground">Privacy</a>

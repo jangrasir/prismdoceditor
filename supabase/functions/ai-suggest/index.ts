@@ -59,7 +59,7 @@ Deno.serve(async (req) => {
           {
             role: "system",
             content:
-              "You are Lumen's smart assistant. Give ONE short, specific, actionable tip (max 2 sentences) " +
+              "You are Prism's smart assistant. Give ONE short, specific, actionable tip (max 2 sentences) " +
               "based on the user's recent file activity. Recommend a tool, format, or workflow improvement. " +
               "Be friendly, concrete, and never generic.",
           },
