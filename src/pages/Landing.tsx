@@ -121,13 +121,16 @@ export default function Landing() {
         <div className="relative mt-20 max-w-4xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
           <div className="absolute -inset-1 bg-gradient-primary rounded-3xl blur-2xl opacity-40 animate-glow-pulse" />
           <div className="relative rounded-2xl border border-border bg-card/80 backdrop-blur-xl shadow-lg overflow-hidden">
-            <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+            <div className="flex items-center gap-3 border-b border-border px-4 py-3">
               <div className="flex gap-1.5">
                 <div className="h-3 w-3 rounded-full bg-destructive/60" />
                 <div className="h-3 w-3 rounded-full bg-warning/60" />
                 <div className="h-3 w-3 rounded-full bg-success/60" />
               </div>
-              <div className="ml-3 text-xs text-muted-foreground font-mono">prism.app/pdf-tools</div>
+              <div className="flex-1 flex items-center justify-center gap-2 rounded-md bg-muted/40 px-3 py-1 text-xs text-muted-foreground font-mono max-w-xs mx-auto">
+                <Shield className="h-3 w-3 text-success" />
+                prism.app/pdf-tools
+              </div>
             </div>
             <div className="grid grid-cols-3 gap-4 p-8">
               {[FileText, ImageIcon, Wand2].map((Icon, i) => (
