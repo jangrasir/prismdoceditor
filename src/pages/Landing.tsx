@@ -118,31 +118,106 @@ export default function Landing() {
         </div>
 
         {/* Floating preview card */}
-        <div className="relative mt-20 max-w-4xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-          <div className="absolute -inset-1 bg-gradient-primary rounded-3xl blur-2xl opacity-40 animate-glow-pulse" />
-          <div className="relative rounded-2xl border border-border bg-card/80 backdrop-blur-xl shadow-lg overflow-hidden">
-            <div className="flex items-center gap-3 border-b border-border px-4 py-3">
+        <div className="relative mt-20 max-w-5xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+          <div className="absolute -inset-1 bg-gradient-primary rounded-3xl blur-2xl opacity-30 animate-glow-pulse" />
+          <div className="relative rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+            {/* Browser chrome */}
+            <div className="flex items-center gap-3 border-b border-border bg-muted/30 px-4 py-3">
               <div className="flex gap-1.5">
-                <div className="h-3 w-3 rounded-full bg-destructive/60" />
-                <div className="h-3 w-3 rounded-full bg-warning/60" />
-                <div className="h-3 w-3 rounded-full bg-success/60" />
+                <div className="h-3 w-3 rounded-full bg-destructive/70" />
+                <div className="h-3 w-3 rounded-full bg-warning/70" />
+                <div className="h-3 w-3 rounded-full bg-success/70" />
               </div>
-              <div className="flex-1 flex items-center justify-center gap-2 rounded-md bg-muted/40 px-3 py-1 text-xs text-muted-foreground font-mono max-w-xs mx-auto">
+              <div className="flex-1 flex items-center justify-center gap-2 rounded-md bg-background/60 border border-border/60 px-3 py-1 text-xs text-muted-foreground font-mono max-w-xs mx-auto">
                 <Shield className="h-3 w-3 text-success" />
                 prism.app/pdf-tools
               </div>
+              <div className="w-12" />
             </div>
-            <div className="grid grid-cols-3 gap-4 p-8">
-              {[FileText, ImageIcon, Wand2].map((Icon, i) => (
-                <div
-                  key={i}
-                  className="aspect-[4/5] rounded-xl border border-border bg-gradient-soft flex flex-col items-center justify-center gap-3 hover:scale-105 transition-transform"
-                >
-                  <Icon className="h-8 w-8 text-primary" />
-                  <div className="h-2 w-16 rounded-full bg-muted" />
-                  <div className="h-2 w-12 rounded-full bg-muted/60" />
+
+            {/* App body */}
+            <div className="grid grid-cols-12 gap-0 bg-background/40">
+              {/* Sidebar */}
+              <aside className="hidden md:flex col-span-3 flex-col gap-1 border-r border-border p-4">
+                {[
+                  { icon: FileText, label: "PDF Studio", active: true },
+                  { icon: ImageIcon, label: "Image Workshop" },
+                  { icon: Wand2, label: "AI Suggest" },
+                  { icon: Shield, label: "Library" },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm ${
+                      item.active
+                        ? "bg-primary/15 text-primary font-medium"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    <span className="truncate">{item.label}</span>
+                  </div>
+                ))}
+                <div className="mt-auto pt-4 border-t border-border">
+                  <div className="flex items-center gap-2">
+                    <div className="h-7 w-7 rounded-full bg-gradient-primary" />
+                    <div className="flex-1 min-w-0">
+                      <div className="h-2 w-16 rounded bg-muted-foreground/40" />
+                      <div className="mt-1 h-1.5 w-10 rounded bg-muted-foreground/20" />
+                    </div>
+                  </div>
                 </div>
-              ))}
+              </aside>
+
+              {/* Main */}
+              <main className="col-span-12 md:col-span-9 p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <div className="text-sm font-semibold">Recent files</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">3 documents · synced</div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-7 w-7 rounded-md border border-border bg-background" />
+                    <div className="h-7 px-3 rounded-md bg-gradient-primary flex items-center text-[11px] font-medium text-primary-foreground">
+                      Upload
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { Icon: FileText, name: "Q4-Report.pdf", meta: "12 pages", tint: "from-primary/20 to-primary/5" },
+                    { Icon: ImageIcon, name: "hero-shot.png", meta: "2.4 MB", tint: "from-accent/25 to-accent/5" },
+                    { Icon: Wand2, name: "tags-suggested", meta: "AI · 5 tags", tint: "from-success/20 to-success/5" },
+                  ].map(({ Icon, name, meta, tint }) => (
+                    <div
+                      key={name}
+                      className="group rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-lg transition-all overflow-hidden"
+                    >
+                      <div className={`aspect-[4/3] bg-gradient-to-br ${tint} flex items-center justify-center border-b border-border`}>
+                        <Icon className="h-10 w-10 text-primary group-hover:scale-110 transition-transform" />
+                      </div>
+                      <div className="p-3">
+                        <div className="text-xs font-medium truncate">{name}</div>
+                        <div className="text-[10px] text-muted-foreground mt-0.5">{meta}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* AI suggestion strip */}
+                <div className="mt-4 flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 p-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-primary">
+                    <Wand2 className="h-4 w-4 text-primary-foreground" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-medium">AI tip</div>
+                    <div className="text-[11px] text-muted-foreground truncate">
+                      Compress hero-shot.png to WebP — save ~68% with no visible loss.
+                    </div>
+                  </div>
+                  <div className="hidden sm:block text-[11px] font-medium text-primary">Apply</div>
+                </div>
+              </main>
             </div>
           </div>
         </div>
