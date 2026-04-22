@@ -83,7 +83,7 @@ export default function Landing() {
           AI-powered. Browser-native. Zero uploads to third parties.
         </div>
 
-        <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6 animate-fade-in-up">
+        <h1 className="font-display text-5xl md:text-7xl font-bold tracking-normal leading-[1.05] mb-6 animate-fade-in-up">
           Edit documents and images
           <br />
           <span className="text-gradient">at the speed of thought.</span>
