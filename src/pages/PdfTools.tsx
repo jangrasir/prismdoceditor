@@ -11,6 +11,11 @@ import { PDFDocument } from "pdf-lib";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 import { uploadAndRecord, downloadBlob, formatBytes } from "@/lib/files";
+import CompressPanel from "@/components/pdf/CompressPanel";
+import ToImagesPanel from "@/components/pdf/ToImagesPanel";
+import WatermarkPanel from "@/components/pdf/WatermarkPanel";
+import OcrPanel from "@/components/pdf/OcrPanel";
+import EncryptPanel from "@/components/pdf/EncryptPanel";
 
 type SelectedFile = { file: File; pageCount: number };
 
@@ -196,11 +201,18 @@ export default function PdfTools() {
       )}
 
       <Tabs defaultValue="merge" className="space-y-4">
-        <TabsList className="grid grid-cols-3 w-full max-w-md">
-          <TabsTrigger value="merge">Merge</TabsTrigger>
-          <TabsTrigger value="split">Split</TabsTrigger>
-          <TabsTrigger value="reorder">Reorder</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto -mx-1 px-1">
+          <TabsList className="inline-flex w-max">
+            <TabsTrigger value="merge">Merge</TabsTrigger>
+            <TabsTrigger value="split">Split</TabsTrigger>
+            <TabsTrigger value="reorder">Reorder</TabsTrigger>
+            <TabsTrigger value="compress">Compress</TabsTrigger>
+            <TabsTrigger value="images">To Images</TabsTrigger>
+            <TabsTrigger value="watermark">Watermark</TabsTrigger>
+            <TabsTrigger value="ocr">OCR</TabsTrigger>
+            <TabsTrigger value="encrypt">Encrypt</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="merge">
           <Card className="p-6">
@@ -264,6 +276,12 @@ export default function PdfTools() {
             </Button>
           </Card>
         </TabsContent>
+
+        <TabsContent value="compress"><CompressPanel files={files} /></TabsContent>
+        <TabsContent value="images"><ToImagesPanel files={files} /></TabsContent>
+        <TabsContent value="watermark"><WatermarkPanel files={files} /></TabsContent>
+        <TabsContent value="ocr"><OcrPanel files={files} /></TabsContent>
+        <TabsContent value="encrypt"><EncryptPanel files={files} /></TabsContent>
       </Tabs>
     </div>
   );
