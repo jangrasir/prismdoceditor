@@ -1,7 +1,6 @@
 // pdfjs-dist wrapper — sets up worker once and exposes simple helpers.
 import * as pdfjsLib from "pdfjs-dist";
 // Use Vite ?url import to bundle the worker file properly.
-// @ts-expect-error — Vite asset URL import
 import workerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
