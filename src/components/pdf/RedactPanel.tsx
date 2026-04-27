@@ -27,18 +27,21 @@ export default function RedactPanel({ files }: Props) {
 
   const loadPage = async () => {
     if (files.length !== 1) return toast.error("Add exactly 1 PDF");
+    setLoaded(true);
+    await new Promise((r) => requestAnimationFrame(() => r(null)));
     setBusy(true);
     try {
       const buf = await files[0].file.arrayBuffer();
       const pdf = await loadPdfDoc(buf);
       const c = await renderPageToCanvas(pdf, pageNum, 1.5);
       canvasRef.current = c;
-      const wrap = wrapRef.current!;
+      const wrap = wrapRef.current;
+      const o = overlayRef.current;
+      if (!wrap || !o) return;
       wrap.innerHTML = "";
       c.style.display = "block";
       c.style.maxWidth = "100%";
       wrap.appendChild(c);
-      const o = overlayRef.current!;
       o.width = c.width;
       o.height = c.height;
       o.style.position = "absolute";
@@ -49,14 +52,12 @@ export default function RedactPanel({ files }: Props) {
       o.style.cursor = "crosshair";
       wrap.style.position = "relative";
       wrap.appendChild(o);
-      // Sync overlay size to displayed canvas size
       requestAnimationFrame(() => {
         const rect = c.getBoundingClientRect();
         o.style.width = `${rect.width}px`;
         o.style.height = `${rect.height}px`;
         redraw();
       });
-      setLoaded(true);
     } catch (e: any) {
       toast.error(e?.message ?? "Failed to render");
     } finally {

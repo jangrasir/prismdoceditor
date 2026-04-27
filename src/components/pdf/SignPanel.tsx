@@ -83,18 +83,22 @@ export default function SignPanel({ files }: Props) {
   // PDF page rendering
   const loadPage = async () => {
     if (files.length !== 1) return toast.error("Add exactly 1 PDF");
+    setLoaded(true);
+    // Wait a tick so wrapRef is mounted
+    await new Promise((r) => requestAnimationFrame(() => r(null)));
     setBusy(true);
     try {
       const buf = await files[0].file.arrayBuffer();
       const pdf = await loadPdfDoc(buf);
       const c = await renderPageToCanvas(pdf, pageNum, 1.5);
       pageCanvasRef.current = c;
-      const wrap = wrapRef.current!;
+      const wrap = wrapRef.current;
+      const o = overlayRef.current;
+      if (!wrap || !o) return;
       wrap.innerHTML = "";
       c.style.display = "block";
       c.style.maxWidth = "100%";
       wrap.appendChild(c);
-      const o = overlayRef.current!;
       o.width = c.width;
       o.height = c.height;
       o.style.position = "absolute";
@@ -109,7 +113,6 @@ export default function SignPanel({ files }: Props) {
         o.style.height = `${r.height}px`;
         redrawOverlay();
       });
-      setLoaded(true);
     } catch (e: any) {
       toast.error(e?.message ?? "Failed");
     } finally {
