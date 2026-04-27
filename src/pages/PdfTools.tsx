@@ -16,6 +16,9 @@ import ToImagesPanel from "@/components/pdf/ToImagesPanel";
 import WatermarkPanel from "@/components/pdf/WatermarkPanel";
 import OcrPanel from "@/components/pdf/OcrPanel";
 import EncryptPanel from "@/components/pdf/EncryptPanel";
+import HeaderFooterPanel from "@/components/pdf/HeaderFooterPanel";
+import RedactPanel from "@/components/pdf/RedactPanel";
+import SignPanel from "@/components/pdf/SignPanel";
 
 type SelectedFile = { file: File; pageCount: number };
 
@@ -211,6 +214,9 @@ export default function PdfTools() {
             <TabsTrigger value="watermark">Watermark</TabsTrigger>
             <TabsTrigger value="ocr">OCR</TabsTrigger>
             <TabsTrigger value="encrypt">Encrypt</TabsTrigger>
+            <TabsTrigger value="headfoot">Header/Footer</TabsTrigger>
+            <TabsTrigger value="redact">Redact</TabsTrigger>
+            <TabsTrigger value="sign">Sign</TabsTrigger>
           </TabsList>
         </div>
 
@@ -282,6 +288,9 @@ export default function PdfTools() {
         <TabsContent value="watermark"><WatermarkPanel files={files} /></TabsContent>
         <TabsContent value="ocr"><OcrPanel files={files} /></TabsContent>
         <TabsContent value="encrypt"><EncryptPanel files={files} /></TabsContent>
+        <TabsContent value="headfoot"><HeaderFooterPanel files={files} /></TabsContent>
+        <TabsContent value="redact"><RedactPanel files={files} /></TabsContent>
+        <TabsContent value="sign"><SignPanel files={files} /></TabsContent>
       </Tabs>
     </div>
   );
