@@ -19,6 +19,8 @@ import EncryptPanel from "@/components/pdf/EncryptPanel";
 import HeaderFooterPanel from "@/components/pdf/HeaderFooterPanel";
 import RedactPanel from "@/components/pdf/RedactPanel";
 import SignPanel from "@/components/pdf/SignPanel";
+import ThumbnailsPanel from "@/components/pdf/ThumbnailsPanel";
+import EditPanel from "@/components/pdf/EditPanel";
 
 type SelectedFile = { file: File; pageCount: number };
 
@@ -217,6 +219,8 @@ export default function PdfTools() {
             <TabsTrigger value="headfoot">Header/Footer</TabsTrigger>
             <TabsTrigger value="redact">Redact</TabsTrigger>
             <TabsTrigger value="sign">Sign</TabsTrigger>
+            <TabsTrigger value="thumbs">Thumbnails</TabsTrigger>
+            <TabsTrigger value="edit">Edit</TabsTrigger>
           </TabsList>
         </div>
 
@@ -291,6 +295,8 @@ export default function PdfTools() {
         <TabsContent value="headfoot"><HeaderFooterPanel files={files} /></TabsContent>
         <TabsContent value="redact"><RedactPanel files={files} /></TabsContent>
         <TabsContent value="sign"><SignPanel files={files} /></TabsContent>
+        <TabsContent value="thumbs"><ThumbnailsPanel files={files} /></TabsContent>
+        <TabsContent value="edit"><EditPanel files={files} /></TabsContent>
       </Tabs>
     </div>
   );
