@@ -84,14 +84,14 @@ export default function Landing() {
         </div>
 
         <h1 className="font-display text-5xl md:text-7xl font-bold tracking-normal leading-[1.05] mb-6 animate-fade-in-up">
-          Edit documents and images
+          Edit documents and media
           <br />
           <span className="text-gradient">at the speed of thought.</span>
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-          Prism is your all-in-one workspace for PDFs and images. Merge, split, compress, convert,
-          and get AI suggestions — all in seconds, all in your browser.
+          Prism is your all-in-one workspace for PDFs, images, and audio. Merge, split, compress,
+          convert, trim, fade, and get AI suggestions — all in seconds, all in your browser.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
