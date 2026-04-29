@@ -11,6 +11,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import PdfTools from "./pages/PdfTools";
 import ImageTools from "./pages/ImageTools";
+import AudioTools from "./pages/AudioTools";
 import HistoryPage from "./pages/HistoryPage";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound.tsx";
@@ -37,6 +38,7 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pdf-tools" element={<PdfTools />} />
               <Route path="/image-tools" element={<ImageTools />} />
+              <Route path="/audio-tools" element={<AudioTools />} />
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
