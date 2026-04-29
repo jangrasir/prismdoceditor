@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   FileText,
   Image as ImageIcon,
+  Music2,
   History,
   User as UserIcon,
   LogOut,
@@ -22,6 +23,7 @@ const nav = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/pdf-tools", label: "PDF Tools", icon: FileText },
   { to: "/image-tools", label: "Image Tools", icon: ImageIcon },
+  { to: "/audio-tools", label: "Audio Tools", icon: Music2 },
   { to: "/history", label: "History", icon: History },
   { to: "/profile", label: "Profile", icon: UserIcon },
 ];
