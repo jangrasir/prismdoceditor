@@ -385,7 +385,7 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
           style={{ aspectRatio: pageDims.w && pageDims.h ? `${pageDims.w} / ${pageDims.h}` : undefined }}
         >
           <div ref={wrapRef} className="absolute inset-0" />
-          <div ref={overlayRef} className="absolute inset-0">
+          <div ref={overlayRef} className="absolute inset-0" style={{ pointerEvents: "none" }}>
             {pageItems.map((it) => {
               const isSel = it.id === selectedId;
               const baseStyle: React.CSSProperties = {
