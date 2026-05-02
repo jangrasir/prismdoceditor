@@ -393,6 +393,7 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
                 left: `${it.xPct}%`,
                 top: `${it.yPct}%`,
                 cursor: "move",
+                pointerEvents: "auto",
                 outline: isSel ? "2px solid hsl(var(--primary))" : "1px dashed hsl(var(--border))",
                 outlineOffset: 1,
               };
