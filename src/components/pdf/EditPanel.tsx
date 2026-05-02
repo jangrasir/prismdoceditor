@@ -55,6 +55,7 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
   const [imgNat, setImgNat] = useState({ w: 1, h: 1 });
   const [imgW, setImgW] = useState(25);
   const [pageDims, setPageDims] = useState({ w: 0, h: 0 });
+  const [displayH, setDisplayH] = useState(0);
   const [drag, setDrag] = useState<DragState>(null);
 
   const pushHistory = (next: EditItem[]) => {
@@ -93,6 +94,16 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
     if (loaded) loadPage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNum]);
+
+  useEffect(() => {
+    const el = overlayRef.current;
+    if (!el) return;
+    const update = () => setDisplayH(el.getBoundingClientRect().height);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [loaded, pageDims]);
 
   const onClickPage = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!loaded || tool === "select" || drag) return;
@@ -377,14 +388,15 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
 
       {/* Page canvas + live preview overlay */}
       {loaded && (
-        <div className="relative border border-border rounded-lg overflow-hidden bg-muted/20">
-          <div
-            ref={wrapRef}
-            className={tool === "select" ? "relative cursor-default" : "relative cursor-crosshair"}
-            onClick={onClickPage}
-            style={{ aspectRatio: pageDims.w && pageDims.h ? `${pageDims.w} / ${pageDims.h}` : undefined }}
-          />
-          <div ref={overlayRef} className="absolute inset-0">
+        <div
+          className={`relative border border-border rounded-lg overflow-hidden bg-muted/20 ${
+            tool === "select" ? "cursor-default" : "cursor-crosshair"
+          }`}
+          onClick={onClickPage}
+          style={{ aspectRatio: pageDims.w && pageDims.h ? `${pageDims.w} / ${pageDims.h}` : undefined }}
+        >
+          <div ref={wrapRef} className="absolute inset-0" />
+          <div ref={overlayRef} className="absolute inset-0" style={{ pointerEvents: "none" }}>
             {pageItems.map((it) => {
               const isSel = it.id === selectedId;
               const baseStyle: React.CSSProperties = {
@@ -392,6 +404,7 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
                 left: `${it.xPct}%`,
                 top: `${it.yPct}%`,
                 cursor: "move",
+                pointerEvents: "auto",
                 outline: isSel ? "2px solid hsl(var(--primary))" : "1px dashed hsl(var(--border))",
                 outlineOffset: 1,
               };
@@ -412,7 +425,7 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
                     style={{
                       ...baseStyle,
                       color: it.color,
-                      fontSize: `${(it.size / pageDims.h) * 100 * (pageDims.h / 100) * 0.6}px`,
+                      fontSize: `${pageDims.h ? (it.size * displayH * 1.5) / pageDims.h : it.size}px`,
                       lineHeight: 1,
                       padding: 2,
                       whiteSpace: "nowrap",
