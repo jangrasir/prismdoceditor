@@ -377,13 +377,14 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
 
       {/* Page canvas + live preview overlay */}
       {loaded && (
-        <div className="relative border border-border rounded-lg overflow-hidden bg-muted/20">
-          <div
-            ref={wrapRef}
-            className={tool === "select" ? "relative cursor-default" : "relative cursor-crosshair"}
-            onClick={onClickPage}
-            style={{ aspectRatio: pageDims.w && pageDims.h ? `${pageDims.w} / ${pageDims.h}` : undefined }}
-          />
+        <div
+          className={`relative border border-border rounded-lg overflow-hidden bg-muted/20 ${
+            tool === "select" ? "cursor-default" : "cursor-crosshair"
+          }`}
+          onClick={onClickPage}
+          style={{ aspectRatio: pageDims.w && pageDims.h ? `${pageDims.w} / ${pageDims.h}` : undefined }}
+        >
+          <div ref={wrapRef} className="absolute inset-0" />
           <div ref={overlayRef} className="absolute inset-0">
             {pageItems.map((it) => {
               const isSel = it.id === selectedId;
