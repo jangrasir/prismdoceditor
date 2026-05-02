@@ -55,6 +55,7 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
   const [imgNat, setImgNat] = useState({ w: 1, h: 1 });
   const [imgW, setImgW] = useState(25);
   const [pageDims, setPageDims] = useState({ w: 0, h: 0 });
+  const [displayH, setDisplayH] = useState(0);
   const [drag, setDrag] = useState<DragState>(null);
 
   const pushHistory = (next: EditItem[]) => {
