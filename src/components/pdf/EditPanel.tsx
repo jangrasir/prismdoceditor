@@ -95,6 +95,16 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNum]);
 
+  useEffect(() => {
+    const el = overlayRef.current;
+    if (!el) return;
+    const update = () => setDisplayH(el.getBoundingClientRect().height);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [loaded, pageDims]);
+
   const onClickPage = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!loaded || tool === "select" || drag) return;
     if ((e.target as HTMLElement).dataset.handle) return;
