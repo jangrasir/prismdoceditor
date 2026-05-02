@@ -425,7 +425,7 @@ export default function EditPanel({ files }: { files: SelectedFile[] }) {
                     style={{
                       ...baseStyle,
                       color: it.color,
-                      fontSize: `${(it.size / pageDims.h) * 100 * (pageDims.h / 100) * 0.6}px`,
+                      fontSize: `${pageDims.h ? (it.size * displayH * 1.5) / pageDims.h : it.size}px`,
                       lineHeight: 1,
                       padding: 2,
                       whiteSpace: "nowrap",
