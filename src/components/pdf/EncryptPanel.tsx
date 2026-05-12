@@ -32,18 +32,39 @@ export default function EncryptPanel({ files }: Props) {
         userPassword: userPwd,
         ownerPassword: ownerPwd || userPwd,
         permissions: {
-          printing: allowPrint ? "highResolution" : undefined,
+          printing: allowPrint ? "highResolution" : false,
           copying: allowCopy,
           modifying: allowModify,
+          annotating: allowModify,
+          fillingForms: allowModify,
+          documentAssembly: allowModify,
+          contentAccessibility: true,
         },
       } as Parameters<typeof pdf.save>[0]);
+
+      // Verify encryption actually applied
+      try {
+        await PDFDocument.load(bytes);
+        throw new Error("Encryption did not apply — file is still readable without a password");
+      } catch (verifyErr: any) {
+        const msg = String(verifyErr?.message ?? "");
+        if (!/encrypt/i.test(msg)) throw verifyErr;
+      }
+
       const blob = new Blob([new Uint8Array(bytes)], { type: "application/pdf" });
       const name = `encrypted-${files[0].file.name}`;
       downloadBlob(blob, name);
-      if (user) await uploadAndRecord(user.id, blob, name, "pdf", "encrypt", "password protected");
+      if (user) {
+        try {
+          await uploadAndRecord(user.id, blob, name, "pdf", "encrypt", "password protected");
+        } catch (upErr: any) {
+          toast.error("Saved locally — couldn't save to library: " + (upErr?.message ?? "error"));
+        }
+      }
       toast.success("PDF encrypted");
     } catch (e: any) {
-      toast.error(e?.message ?? "Failed");
+      console.error("Encrypt failed:", e);
+      toast.error(e?.message ?? "Encryption failed");
     } finally {
       setBusy(false);
     }
