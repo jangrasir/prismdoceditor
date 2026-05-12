@@ -28,9 +28,16 @@ export default function EncryptPanel({ files }: Props) {
     try {
       const buf = await files[0].file.arrayBuffer();
       const pdf = await PDFDocument.load(buf, { ignoreEncryption: true });
+      // Owner password MUST differ from user password, otherwise PDF viewers
+      // grant full owner rights and ignore permission flags.
+      const effectiveOwnerPwd =
+        ownerPwd && ownerPwd !== userPwd
+          ? ownerPwd
+          : crypto.randomUUID() + crypto.randomUUID();
+
       const bytes = await pdf.save({
         userPassword: userPwd,
-        ownerPassword: ownerPwd || userPwd,
+        ownerPassword: effectiveOwnerPwd,
         permissions: {
           printing: allowPrint ? "highResolution" : false,
           copying: allowCopy,
